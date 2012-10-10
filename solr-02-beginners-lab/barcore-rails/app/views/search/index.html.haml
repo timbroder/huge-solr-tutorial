@@ -44,9 +44,10 @@
 
     #results.span9
       %p
-        .badge.badge-success
-          Found #{@response[:response][:numFound]} results:
-      %ol
+        #numFound.badge.badge-success
+          Found #{@response[:response][:numFound]} results
+
+      %ol(start="#{@response[:response][:start] + 1}")
         - @response.docs.each do |doc|
           %li
             %strong
