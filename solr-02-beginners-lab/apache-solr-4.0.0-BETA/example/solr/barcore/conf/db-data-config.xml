@@ -51,6 +51,8 @@
 			<field column="SEPARATED" name="separated" />
 			<field column="WIDOWED" name="widowed" />
 			<field column="DIVORCED" name="divorced" />
+			
+			<field column="location" template="${bar.LATITUDE},${bar.LONGITUDE}" />
 		</entity>
 		
 	</document>

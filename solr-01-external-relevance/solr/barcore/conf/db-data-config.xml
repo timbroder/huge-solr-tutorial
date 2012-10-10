@@ -22,7 +22,8 @@
 
 		<!-- this entity is the 'root' entity. -->
 
-		<entity name="bar" pk="ID" query="SELECT * FROM NYC_BARS, NYC_ZIPS WHERE NYC_BARS.ZIP = NYC_ZIPS.ZIP;">
+		<entity name="bar" pk="ID" query="SELECT * FROM NYC_BARS, NYC_ZIPS WHERE NYC_BARS.ZIP = NYC_ZIPS.ZIP;"
+			transformer="TemplateTransformer,LogTransformer" logTemplate="Indexing: ${bar.NAME}" logLevel="info">
 			<field column="ID" name="id" />
 			<field column="NAME" name="name" />
 			<field column="ADDRESS" name="address" />
@@ -51,6 +52,8 @@
 			<field column="SEPARATED" name="separated" />
 			<field column="WIDOWED" name="widowed" />
 			<field column="DIVORCED" name="divorced" />
+
+			<field column="location" template="${bar.LATITUDE},${bar.LONGITUDE}" />
 		</entity>
 		
 	</document>
