@@ -7,8 +7,8 @@
   .row
     %form.span10(method='GET')
       = text_field_tag(:q, params[:q], class: 'span3', placeholder: 'Search...')
-      = text_field_tag(:lat, params[:lat] || '40.702902', class: 'span1', placeholder: 'Lat')
-      = text_field_tag(:lon, params[:lon] || '-73.989748', class: 'span1', placeholder: 'Lon')
+      = text_field_tag(:lat, params[:lat] || '40.7466316', class: 'span1', placeholder: 'Lat')
+      = text_field_tag(:lon, params[:lon] || '-73.9820822', class: 'span1', placeholder: 'Lon')
       = select_tag(:sort, 
         options_for_select([['Relevance', 'score desc, rating desc, price desc'],
           ['Rating', 'rating desc, score desc, price desc'],
@@ -20,20 +20,21 @@
   .row
     #filters.span3
       %p
-        .label.label-info
+        .badge.badge-info
           Distance
-        = link_to(".5 mi", params.merge({fq: "{!geofilt}", d: 0.8, page: 1}))
+        = link_to("Blocks (.5 mi.)", params.merge({fq: "{!geofilt}", d: 0.8, page: 1}))
         %br
-        = link_to("1 mi", params.merge({fq: "{!geofilt}", d: 1.6, page: 1}))
+        = link_to("Walking (1 mi.)", params.merge({fq: "{!geofilt}", d: 1.6, page: 1}))
         %br
-        = link_to("2 mi", params.merge({fq: "{!geofilt}", d: 3.2, page: 1}))
+        = link_to("Biking (2 mi.)", params.merge({fq: "{!geofilt}", d: 3.2, page: 1}))
         %br
-        = link_to("3 mi", params.merge({fq: "{!geofilt}", d: 4.8, page: 1}))
+        = link_to("Driving (5 mi.)", params.merge({fq: "{!geofilt}", d: 4.8, page: 1}))
+        %br
         %br
 
       - @response.facets.each do |facet|
         %p
-          .label.label-info
+          .badge.badge-info
             = facet.name.titleize
           - facet.items.each do |item|
             = link_to(item.value.titleize, params.merge({fq: "#{facet.name}:\"#{item.value}\"", page: 1}))
@@ -42,6 +43,9 @@
         %br
 
     #results.span7
+      %p
+        .badge.badge-success
+          Found #{@response[:response][:numFound]} results:
       %ol
         - @response.docs.each do |doc|
           %li

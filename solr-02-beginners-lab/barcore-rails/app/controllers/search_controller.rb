@@ -7,7 +7,7 @@ class SearchController < ApplicationController
   def index
     q = params[:q].blank? ? '*:*' : params[:q]
     sort = params[:sort].blank? ? 'score desc, rating desc, price desc' : params[:sort]
-    pt = (params[:lat].blank? or params[:lon].blank?) ? '40.702902,-73.989748' : "#{params[:lat]},#{params[:lon]}"
+    pt = (params[:lat].blank? or params[:lon].blank?) ? '40.7466316,-73.9820822' : "#{params[:lat]},#{params[:lon]}"
 
     solr = RSolr::Ext.connect :url => @@solr_url
 
