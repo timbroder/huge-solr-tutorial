@@ -156,7 +156,7 @@
 		<field name="widowed" type="sfloat" indexed="true" stored="true" multiValued="false" required="false"/>
 		<field name="divorced" type="sfloat" indexed="true" stored="true" multiValued="false" required="false"/>
 
-		<field name="votes" type="externalFile" indexed="false" stored="false" multiValued="false" required="false"/>
+		<field name="votes" type="sfloat" indexed="true" stored="true" multiValued="false" required="false"/>
 
     <field name="location" type="location" indexed="true" stored="true" required="false" multiValued="false"/>
 		<field name="location_0_coordinate" type="double" indexed="true" stored="true" required="false" multiValued="false" />
