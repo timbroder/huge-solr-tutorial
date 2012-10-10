@@ -1,7 +1,7 @@
 class SearchController < ApplicationController
   
-  # @@solr_url = 'http://localhost:8983/solr/barcore'
-  @@solr_url = 'http://localhost:8080/solr-search/barcore'
+  @@solr_url = 'http://localhost:8983/solr/barcore'
+  # @@solr_url = 'http://localhost:8080/solr-search/barcore'
   @@per_page = 25
 
   def index

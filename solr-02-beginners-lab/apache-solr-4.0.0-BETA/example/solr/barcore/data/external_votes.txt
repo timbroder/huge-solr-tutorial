@@ -1,5 +1,0 @@
-Beauty Bar=25
-Bar Jamon=20
-Parlour=15
-Alibi=10
-
