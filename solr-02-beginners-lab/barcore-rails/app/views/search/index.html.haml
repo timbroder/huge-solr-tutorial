@@ -58,7 +58,7 @@
 
             = doc[:address]
             = doc[:address_extended] ? ', ' + doc[:address_extended] : ''
-            = " (#{(doc['geodist()']/1.60934).round(1)}) mi" if doc['geodist()']
+            != "&nbsp;&nbsp;<em>(#{(doc['geodist()']/1.60934).round(1)} mi)</em>" if doc['geodist()']
             %br
 
             = doc[:city]
