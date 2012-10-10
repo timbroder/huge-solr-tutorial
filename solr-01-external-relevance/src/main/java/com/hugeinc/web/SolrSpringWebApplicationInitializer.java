@@ -17,7 +17,7 @@ public class SolrSpringWebApplicationInitializer implements WebApplicationInitia
 
     ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
       "dispatcher", new DispatcherServlet(mvcContext));
-    dispatcher.setLoadOnStartup(1);
+    dispatcher.setLoadOnStartup(2);
     dispatcher.addMapping("/app/*");
     
   }

@@ -38,12 +38,6 @@ public class SolrSpringConfiguration {
     return resolver;
   }
 
-  @Bean(name = "dataSource")
-  public DataSource configureDatasource(@Value("${db.url}") String dbUrl, @Value("${db.username}") String dbUsername, @Value("${db.password}") String dbPassword) {
-    SimpleDriverDataSource ds = new SimpleDriverDataSource(new Driver(), dbUrl, dbUsername, dbPassword);
-    return ds;
-  }
-
   @Bean(name = "org.h2.tools.Server-WebServer")
   public Server createPgServer(DataSource dataSource) {
     Preconditions.checkNotNull(dataSource);
@@ -52,6 +46,12 @@ public class SolrSpringConfiguration {
     } catch (SQLException e) {
       throw new IllegalStateException("The h2 database web console didn't start up.", e);
     }
+  }
+  
+  @Bean(name = "dataSource")
+  public DataSource configureDatasource(@Value("${db.url}") String dbUrl, @Value("${db.username}") String dbUsername, @Value("${db.password}") String dbPassword) {
+    SimpleDriverDataSource ds = new SimpleDriverDataSource(new Driver(), dbUrl, dbUsername, dbPassword);
+    return ds;
   }
   
   @Bean(name="jdbcTemplate")
