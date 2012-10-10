@@ -1,11 +1,11 @@
 .container
 
   .row
-    %h2.span10
+    %h2.span12
       %a(href='/' style='color:black; text-decoration:none;') BarCore
 
   .row
-    %form.span10(method='GET')
+    %form.span12(method='GET')
       = text_field_tag(:q, params[:q], class: 'span3', placeholder: 'Search...')
       = text_field_tag(:lat, params[:lat] || '40.7466316', class: 'span1', placeholder: 'Lat')
       = text_field_tag(:lon, params[:lon] || '-73.9820822', class: 'span1', placeholder: 'Lon')
@@ -42,7 +42,7 @@
             %br
         %br
 
-    #results.span7
+    #results.span9
       %p
         .badge.badge-success
           Found #{@response[:response][:numFound]} results:
