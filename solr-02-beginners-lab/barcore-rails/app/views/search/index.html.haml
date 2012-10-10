@@ -1,0 +1,61 @@
+.container
+
+  .row
+    %h2.span10
+      %a(href='/' style='color:black; text-decoration:none;') BarCore
+
+  .row
+    %form.span10(method='GET')
+      = text_field_tag(:q, params[:q], class: 'span7', placeholder: 'Search...')
+      = submit_tag('Search', class: 'btn btn-primary span2', style:'vertical-align: top')
+
+  .row
+    #filters.span3
+      - @response.facets.each do |facet|
+        %p
+          .label.label-info
+            = facet.name.titleize
+          - facet.items.each do |item|
+            = link_to(item.value.titleize, params.merge({fq: "#{facet.name}:\"#{item.value}\"", page: 1}))
+            != " <em>(#{item.hits})</em>"
+            %br
+        %br
+
+    #results.span7
+      %ol
+        - @response.docs.each do |doc|
+          %li
+            %strong
+              != @response[:highlighting][doc[:id]][:name] ? @response[:highlighting][doc[:id]][:name].first : doc[:name]
+            != "<img src='/assets/star_icon.png' style='vertical-align:top' />" * doc[:rating].to_i if doc[:rating]
+            != "<img src='/assets/dollar_icon.gif' style='vertical-align:top' />" * doc[:price] if doc[:price]
+            = ' wifi' if doc[:wifi]
+            %br
+
+            - if doc[:cuisine]
+              != @response[:highlighting][doc[:id]][:cuisine] ? @response[:highlighting][doc[:id]][:cuisine].first : doc[:cuisine]
+              %br
+
+            = doc[:address]
+            = doc[:address_extended] ? ', ' + doc[:address_extended] : ''
+            %br
+
+            = doc[:city]
+            ,
+            = doc[:state]
+            = doc[:zip]
+            %br
+
+            = doc[:neighborhood]
+            %br
+
+            %em
+              Female/Male: #{(doc[:female]/doc[:male]).round(2)}
+              | 
+              Single: #{(doc[:unmarried]*100).to_i}%
+              | 
+              Income: $#{(doc[:income]/1000).round(1)}k
+            %hr
+
+      = will_paginate @response.docs
+

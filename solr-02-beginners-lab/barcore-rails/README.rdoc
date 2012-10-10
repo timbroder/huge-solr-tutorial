@@ -1,0 +1,5 @@
+0. Ensure Solr is running
+1. Run "bundle install" if it's your first run of the application.
+2. Run "rails s" to start the rails server.
+3. Point to browser to "http://localhost:8983/"
+4. Play!
