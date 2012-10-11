@@ -1,16 +1,20 @@
 class SearchController < ApplicationController
   
+  # Set some constants
   @@solr_url = 'http://localhost:8983/solr/barcore'
-  # @@solr_url = 'http://localhost:8080/solr-search/barcore'
   @@per_page = 25
 
   def index
+    # Set some default query parameters
     q = params[:q].blank? ? '*:*' : params[:q]
     sort = params[:sort].blank? ? 'score desc, rating desc, price desc' : params[:sort]
-    pt = (params[:lat].blank? or params[:lon].blank?) ? '40.702902,-73.989748' : "#{params[:lat]},#{params[:lon]}"
+    pt = (params[:lat].blank? or params[:lon].blank?) ? '40.7466316,-73.9820822' : "#{params[:lat]},#{params[:lon]}"
 
+
+    # Connect to Solr
     solr = RSolr::Ext.connect :url => @@solr_url
 
+    # Set the Solr query parameters
     solr_params = {
       queries: q,
       sort: sort,
@@ -28,17 +32,16 @@ class SearchController < ApplicationController
       fl: 'score,geodist(),*'
     }
 
-    # Include any other request parameters
+    # Pass through other request parameters into the solr query 
     solr_params.merge! params
 
     # Get the search results
-    @response = solr.find solr_params
-    
+    @response = solr.find solr_params    
   end
 
   def autocomplete
     solr = RSolr::Ext.connect :url => @@solr_url
-
+    
     solr_params = {
       queries: '*:*',
       per_page: 0,
